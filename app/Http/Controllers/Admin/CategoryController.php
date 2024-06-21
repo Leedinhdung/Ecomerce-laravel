@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('Admin.Category.index');
+        return view('Admin.Catalogue.index');
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         // dd($categories->toArray());
-        return view('Admin.Category.create', compact('categories'));
+        return view('Admin.Catalogue.create', compact('categories'));
     }
 
     /**

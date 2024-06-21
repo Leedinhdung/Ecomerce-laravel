@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CatalogueController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Middleware\AuthenticateMiddleware;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Middleware\CheckAdminMiddleware;
+use Illuminate\Support\Facades\Auth;
+use \App\Http\Controllers\Auth\RegisterController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,16 +24,23 @@ Route::get('/', function () {
     return view('auth.login');
 });
 // name: dễ dàng tham chiếu tuyến đường này theo tên của nó trong các phần khác của ứng dụng, chẳng hạn như tạo liên kết hoặc chuyển hướng.
-Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(AuthenticateMiddleware::class);
-Route::get('/', [AuthController::class, 'index'])->name('auth.login');
-Route::post('login', [AuthController::class, 'login'])->name('auth.signin');
-Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+//USER
+//Auth::routes();
+//login
+Route::get('auth/login', [LoginController::class, 'ShowLoginForm'])->name('login');
+Route::post('auth/login', [LoginController::class, 'login']);
+Route::get('auth/logout', [LoginController::class, 'logout'])->name('logout');
+//Register
+Route::get('auth/register', [RegisterController::class, 'ShowRegisterForm'])->name('register');
+Route::post('auth/register', [RegisterController::class, 'register']);
+
+
+Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(CheckAdminMiddleware::class);
 
 // CATEGORY
-Route::get('admin/category', [CategoryController::class, 'index'])->name('cat.list')->middleware(AuthenticateMiddleware::class);
-Route::get('admin/category/add', [CategoryController::class, 'create'])->name('cat.create')->middleware(AuthenticateMiddleware::class);;
-Route::post('admin/category/create', [CategoryController::class, 'store'])->name('cat.store');
+
 
 //Products
-Route::get('admin/products', [ProductController::class, 'index'])->name('products.list')->middleware(AuthenticateMiddleware::class);
-Route::get('admin/products/add', [ProductController::class, 'create'])->name('products.create')->middleware(AuthenticateMiddleware::class);
+Route::get('admin/products', [ProductController::class, 'index'])->name('products.list');
+Route::get('admin/products/add', [ProductController::class, 'create'])->name('products.create');

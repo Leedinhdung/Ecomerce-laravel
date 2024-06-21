@@ -22,18 +22,22 @@ class AuthRequest extends FormRequest
     public function rules(): array
     {
         return [
+//            'fullname' => 'required',
             'email' => 'required|email:unique',
             'password' => ['required', 'string', 'min:8'],
+//            'password_confirmation' => 'required|same:password',
         ];
     }
     public function messages()
     {
         return [
+//            'fullname.required' => 'Vui lòng nhập họ và tên',
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Email không đúng định dạng',
             'password.required' => 'Vui lòng nhập mật khẩu',
             'password.min' => 'Mật khẩu ít nhất 8 ký tự',
-           
+//            'password_confirmation.required'=>'Vui lòng xác nhận mật khẩu',
+
         ];
     }
 }

@@ -15,7 +15,7 @@
     <title>Zenix - Crypto Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
-    <link href="{{ asset('images/favicon.png') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 </head>
@@ -29,46 +29,49 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-
-                                    <h4 class="text-center mb-4">Chào mừng bạn đến với Zenix</h4>
-                                    <form action="{{route('login')}}" method="POST">
+                                    <div class="text-center mb-3">
+                                        <img src="images/logo-full.png" alt="">
+                                    </div>
+                                    <h4 class="text-center mb-4">Đăng ký tài khoản của bạn</h4>
+                                    <form method="POST" action="{{ route('register') }}">
                                         @csrf
                                         <div class="form-group">
+                                            <label class="mb-1">Tên người dùng</label>
+                                            <input type="text" class="form-control" name="fullname"
+                                                value="{{ old('fullname') }}">
+                                            @error('fullname')
+                                                <div class="error-message mt-2 text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
                                             <label class="mb-1">Email</label>
-                                            <input type="text" name="email" class="form-control"
-                                                value="{{ old('email') }}">
+                                            <input type="email" class="form-control" name="email"
+                                                value="{{ old('email') }}" placeholder="email@gmail.com">
                                             @error('email')
                                                 <div class="error-message mt-2 text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <label class="mb-1">Mật khẩu</label>
-                                            <input type="password" name="password" class="form-control">
+                                            <input type="password" class="form-control" name="password">
                                             @error('password')
                                                 <div class="error-message mt-2 text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox ml-1 ">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="basic_checkbox_1">
-                                                    <label class="custom-control-label " for="basic_checkbox_1">Nhớ mật
-                                                        khẩu</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <a href="">Quên mật khẩu?</a>
-                                            </div>
+                                        <div class="form-group">
+                                            <label class="mb-1">Xác nhận mật khẩu</label>
+                                            <input type="password" name="password_confirmation" class="form-control">
+                                            @error('password_confirmation')
+                                            <div class="error-message mt-2 text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">ĐĂNG NHẬP</button>
+                                        <div class="text-center mt-4">
+                                            <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Bạn chưa có tài khoản? <a class="text-primary"
-                                                href="{{ route('register') }}">Đăng
-                                                ký</a></p>
+                                        <p>Bạn đã có tài khoản ? <a class="text-primary"
+                                                href="{{ route('login') }}">Đăng nhập</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -79,10 +82,9 @@
         </div>
     </div>
 
-
     <!--**********************************
-        Scripts
-    ***********************************-->
+ Scripts
+***********************************-->
     <!-- Required vendors -->
     <script src="{{ asset('vendor/global/global.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
@@ -93,3 +95,4 @@
 </body>
 
 </html>
+

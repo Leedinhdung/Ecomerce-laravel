@@ -14,7 +14,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>@yield('title')</title>
+    <title>@yield('title',config('app.name'))</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
     <!-- Datatable -->
@@ -939,9 +939,10 @@
                             </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <img src="{{ asset('images/profile/pic1.jpg') }}" width="20" alt="">
+                                    <img src="{{ asset('images/admin.jpg') }}" width="20" alt="">
                                     <div class="header-info">
-                                        <span>Johndoe</span>
+                                        <span> {{ Auth::user()->fullname }}
+                                        </span>
                                         <small>Super Admin</small>
                                     </div>
                                 </a>
@@ -968,7 +969,7 @@
                                         </svg>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a href="{{ route('auth.logout') }}" class="dropdown-item ai-icon">
+                                    <a href="{{ route('logout') }}" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger"
                                             width="18" height="18" viewbox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -1012,7 +1013,7 @@
                             <span class="nav-text">Quản lý</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('cat.list') }}">Danh mục</a></li>
+                            <li><a href="{{ route('admin.catalogues.index') }}">Danh mục</a></li>
                             <li><a href="{{ route('products.list') }}">Sản phẩm</a></li>
                             <li><a href="my-wallets.html">Wallet</a></li>
 
