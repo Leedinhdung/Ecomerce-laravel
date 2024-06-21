@@ -6,6 +6,7 @@ use App\Models\Admin\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CatRequest;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('Admin.Category.create');
+        $categories = Category::all();
+        return view('Admin.Category.index');
     }
 
     /**
@@ -22,15 +24,20 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        // dd($categories->toArray());
+        return view('Admin.Category.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(CatRequest $request)
     {
-        //
+        $request->input('parent_id') ?: 0;
+        dd($request->all());
+        Category::query()->create($request->all());
+        return redirect()->route('cat.create')->with('message', 'Thêm danh mục thành công');
     }
 
     /**
